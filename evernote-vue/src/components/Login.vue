@@ -38,6 +38,17 @@
 </template>
 
 <script>
+// import request from '@/helpers/request'
+import Auth from '@/apis/auth'
+Auth.getInfo()
+  .then(data=> {
+    console.log(data)
+  })
+// request('/auth')
+// .then(
+//   data=>{console.log(data)}
+//   )
+
 export default {
   name: "Login",
   data() {
@@ -83,6 +94,14 @@ export default {
         }
         this.register.isError = false
         this.register.notice = ''
+        Auth.register({
+          username:this.register.username,
+          password:this.register.password
+        }).then(data=>{console.log(data)})
+        // request('/auth/register', 'POST', 
+        // {username:this.register.username,
+        // password:this.register.password
+        // }).then(data=>{console.log(data)})
         console.log(`start register..., username: ${this.register.username} , password: ${this.register.password}`)
       },
       onLogin(){
@@ -98,8 +117,16 @@ export default {
         }
         this.login.isError = false
         this.login.notice = ''
+        Auth.login({
+          username:this.login.username,
+          password:this.login.password
+        }).then(data=>{console.log(data)})
+        // request('/auth/login', 'POST', 
+        // {username:this.login.username,
+        // password:this.login.password
+        // }).then(data=>{console.log(data)})
         
-        console.log(`start login..., username: ${this.login.username} , password: ${this.login.password}`)      
+        console.log(`start login..., username: ${this.login.username} , password: ${this.login.username}`)      
       }
   }
 }
