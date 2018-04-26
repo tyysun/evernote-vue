@@ -12,7 +12,7 @@ export default  function request(url, type = 'GET', data = {}){
       url,
       method: type,
       validateStatus(status){
-        return (status >=200 && status < 300 ) || atatus === 400
+        return (status >=200 && status < 300 ) || status === 400
         // 如果状态不，满足这个条件 直接catch
       }
     }
