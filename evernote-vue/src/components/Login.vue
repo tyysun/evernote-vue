@@ -39,7 +39,8 @@
 
 <script>
 // import request from '@/helpers/request'
-import Auth from '@/apis/auth'
+import Auth from "@/apis/auth";
+import Bus from "@/helpers/bus";
 // Auth.getInfo()
 //   .then(data=> {
 //     console.log(data)
@@ -55,101 +56,97 @@ export default {
     return {
       isShowLogin: true,
       isShowRegister: false,
-      login:{
-        username:'',
-        password:'',
-        notice:'输入用户名和密码',
-        isError:false
+      login: {
+        username: "",
+        password: "",
+        notice: "输入用户名和密码",
+        isError: false
       },
-      register:{
-        username:'',
-        password:'',
-        notice:'创建账号后，请记住用户名和密码',
-        isError:false
+      register: {
+        username: "",
+        password: "",
+        notice: "创建账号后，请记住用户名和密码",
+        isError: false
       }
-
-    }
+    };
   },
 
-  methods:{
-    
-     showLogin(){
-        this.isShowLogin = true
-        this.isShowRegister = false
-      },
-      showRegister(){
-        this.isShowLogin = false
-        this.isShowRegister = true
-      },
-      onRegister(){
-        if(!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)){
-          this.register.isError = true
-          this.register.notice = '用户名3~15个字符，仅限于字母数字下划线中文'
-          return
-        }
-        if(!/^.{6,16}$/.test(this.register.password)){
-          this.register.isError = true
-          this.register.notice = '密码长度为6~16个字符'
-          return
-        }
-        this.register.isError = false
-        this.register.notice = ''
-        Auth.register({
-          username:this.register.username,
-          password:this.register.password
-        }).then(data=>{console.log(data)
-        this.register.isError = false
-        this.register.notice = ''
-        this.$router.push({path: 'notebooks'})
-        }).catch(data=>{
-          this.register.isError = true
-           this.register.notice = data.msg
-           console.log(data)
-
-        })
-        // request('/auth/register', 'POST', 
-        // {username:this.register.username,
-        // password:this.register.password
-        // }).then(data=>{console.log(data)})
-        
-      },
-      onLogin(){
-        if(!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)){
-          this.login.isError = true
-          this.login.notice = '用户名3~15个字符，仅限于字母数字下划线中文'
-          return
-        }
-        if(!/^.{6,16}$/.test(this.login.password)){
-          this.login.isError = true
-          this.login.notice = '密码长度为6~16个字符'
-          return
-        }
-        
-        Auth.login({
-          username:this.login.username,
-          password:this.login.password
-        }).then(data => {console.log(data)
-            this.login.isError = false
-            this.login.notice = ''
-            this.$router.push({path: 'notebooks'})
-            console.log('进行跳转')
-            }).catch(data => {
-              console.log(data)
-              this.login.isError = true
-              this.login.notice = data.msg
-            })
-        // request('/auth/login', 'POST', 
-        // {username:this.login.username,
-        // password:this.login.password
-        // }).then(data=>{console.log(data)})
-        
-        // console.log(`start login..., username: ${this.login.username} , password: ${this.login.username}`)      
+  methods: {
+    showLogin() {
+      this.isShowLogin = true;
+      this.isShowRegister = false;
+    },
+    showRegister() {
+      this.isShowLogin = false;
+      this.isShowRegister = true;
+    },
+    onRegister() {
+      if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)) {
+        this.register.isError = true;
+        this.register.notice = "用户名3~15个字符，仅限于字母数字下划线中文";
+        return;
       }
+      if (!/^.{6,16}$/.test(this.register.password)) {
+        this.register.isError = true;
+        this.register.notice = "密码长度为6~16个字符";
+        return;
+      }
+
+      Auth.register({
+        username: this.register.username,
+        password: this.register.password
+      })
+        .then(data => {
+          console.log(data);
+          this.register.isError = false;
+          this.register.notice = "";
+          this.$router.push({ path: "notebooks" });
+          Bus.$emit("userInfo", { username: this.register.username });
+        })
+        .catch(data => {
+          this.register.isError = true;
+          this.register.notice = data.msg;
+          console.log(data);
+        });
+    },
+    onLogin() {
+      if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)) {
+        this.login.isError = true;
+        this.login.notice = "用户名3~15个字符，仅限于字母数字下划线中文";
+        return;
+      }
+      if (!/^.{6,16}$/.test(this.login.password)) {
+        this.login.isError = true;
+        this.login.notice = "密码长度为6~16个字符";
+        return;
+      }
+
+      Auth.login({
+        username: this.login.username,
+        password: this.login.password
+      })
+        .then(data => {
+          console.log(data);
+          this.login.isError = false;
+          this.login.notice = "";
+          this.$router.push({ path: "notebooks" });
+          Bus.$emit("userInfo", { username: this.login.username });
+          console.log("进行跳转");
+        })
+        .catch(data => {
+          console.log(data);
+          this.login.isError = true;
+          this.login.notice = data.msg;
+        });
+      // request('/auth/login', 'POST',
+      // {username:this.login.username,
+      // password:this.login.password
+      // }).then(data=>{console.log(data)})
+
+      // console.log(`start login..., username: ${this.login.username} , password: ${this.login.username}`)
+    }
   }
-}
-
-
-
+};
 
 // export default {
 //     data(){
@@ -207,11 +204,10 @@ export default {
 //         }
 //         this.login.isError = false
 //         this.login.notice = ''
-        
-//         console.log(`start login..., username: ${this.login.username} , password: ${this.login.password}`)      
+
+//         console.log(`start login..., username: ${this.login.username} , password: ${this.login.password}`)
 //       }
 //     }}
-  
 </script>
 
 <style lang='less' scoped>
@@ -266,11 +262,11 @@ export default {
       .login {
         padding: 0px 20px;
         height: 0;
-       overflow: hidden;
-       transition: height .4s;
+        overflow: hidden;
+        transition: height 0.4s;
         &.show {
-                height: 193px;
-              }
+          height: 193px;
+        }
 
         input {
           display: block;
@@ -303,8 +299,9 @@ export default {
           cursor: pointer;
         }
       }
-      
-      .login,.register .error {
+
+      .login,
+      .register .error {
         color: red;
       }
     }
