@@ -1,5 +1,7 @@
-// import axios from 'axios'
-const axios = require('axios')
+import { Message } from 'element-ui';
+import baseURLConfig from './config-baseURL'
+import axios from 'axios'
+
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.baseURL = 'http://note-server.hunger-valley.com'
@@ -25,9 +27,17 @@ export default  function request(url, type = 'GET', data = {}){
       if(res.status === 200){
         resolve(res.data)
       }else{
+        Message({
+          type:'error',
+          message:res.data.msg
+        })
         reject(res.data)
       }
     }).catch(err=>{
+      Message({
+        type:'error',
+        message:res.data.msg
+      })
       reject({msg:'网络异常'})
     })
   })
