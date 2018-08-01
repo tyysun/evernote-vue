@@ -7,9 +7,9 @@
       <div class="layout">
         <h3>笔记本列表({{notebooks.length}})</h3>
         <div class="book-list">
-          <router-link :to="`/note?notebookId=${notebook.id}`" class="notebook" v-for="notebook in notebooks" v-bind:key="key">
+          <router-link :to="`/note?notebookId=${notebook.id}`" class="notebook" v-for="(notebook,index) in notebooks" v-bind:key="index">
             <div>
-              <span class="iconfont icon-notebook"></span> {{notebook.title}} <span>{{notebook.noteCounts}}</span><span class="action" @click.stop.prevent="onEdit(notebook)">编辑</span><span class="action" @click.stop.prevent="onDelete(notebook)">删除</span><span class="data">{{notebook.friendlyCreatedAt}}</span>
+              <span class="iconfont icon-notebook"></span> {{notebook.title}} <span>{{notebook.noteCounts}}</span><span class="action" @click.stop.prevent="onEdit(notebook)">编辑</span><span class="action" @click.stop.prevent="onDelete(notebook)">删除</span><span class="data">{{notebook.createdAtFriendly}}</span>
             </div>
           </router-link>
           

@@ -11,20 +11,21 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/login',
-      component: Login
+      path: '/',
+      alias: '/login',
+      component: () => import('@/components/Login.vue')
     },
     {
       path: '/notebooks',
-      component: NotebookList
+      component: () => import('@/components/NotebookList.vue')
     },
     {
       path: '/note',
-      component: NoteDetail
+      component: () => import('@/components/NoteDetail.vue')
     },
     {
       path: '/trash',
-      component: TrashDetail
+      component: () => import('@/components/TrashDetail.vue')
     }
     
   ]

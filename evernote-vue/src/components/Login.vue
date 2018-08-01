@@ -3,7 +3,10 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-          <div class="main"></div>
+          <div class="main">
+            <pikachu></pikachu>
+
+          </div>
           <div class="form">
 
 
@@ -41,6 +44,7 @@
 // import request from '@/helpers/request'
 import Auth from "@/apis/auth";
 import Bus from "@/helpers/bus";
+import pikachu from "@/components/Pikachu";
 // Auth.getInfo()
 //   .then(data=> {
 //     console.log(data)
@@ -52,6 +56,9 @@ import Bus from "@/helpers/bus";
 
 export default {
   name: "Login",
+  components: {
+    pikachu
+  },
   data() {
     return {
       isShowLogin: true,
@@ -229,24 +236,26 @@ export default {
     transform: translate(-50%, -50%);
     width: 800px;
     height: 500px;
-    background-color: #fff;
-    border-radius: 15px;
+    
+    border-radius: 25px;
+    overflow: hidden;
 
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-    .main {
-      flex: 1;
-      border-radius: 15px 0 0 15px;
+    // .main {
+    //   // flex: 1;
+    //   border-radius: 15px 0 0 15px;
 
-      background: #36bc64
-        url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center
-        center no-repeat;
-      background-size: contain;
-    }
+    //   // background: #36bc64
+    //   //   url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center
+    //   //   center no-repeat;
+    //   // background-size: contain;
+    // }
     .form {
       width: 270px;
-      border-left: 1px solid #ccc;
+      // border-left: 1px solid #ccc;
+      background-color: #fff;
 
       h3 {
         padding: 15px 20px;
@@ -288,7 +297,7 @@ export default {
           color: #444;
         }
         .button {
-          background-color: #2bb964;
+          background-color: #364f6b;
           height: 36px;
           line-height: 36px;
           text-align: center;

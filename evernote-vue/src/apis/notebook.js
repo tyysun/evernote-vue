@@ -1,5 +1,5 @@
 import request from '@/helpers/request'
-import {friendlyDate} from '@/helpers/util';
+import {friendlyDate} from '@/helpers/util'
 
 
 
@@ -18,7 +18,8 @@ export default {
       .then(res => {
         res.data=res.data.sort((notebook1,notebook2) => notebook1.createdAt < notebook2.createdAt)
         res.data.forEach(notebook =>{
-          notebook.friendlyCreatedAt = friendlyDate(notebook.createdAt)
+          notebook.createdAtFriendly = friendlyDate(notebook.createdAt)
+          notebook.updatedAtFriendly = friendlyDate(notebook.updateAt)
         })
         resolve(res)
       }).catch(err=>{
@@ -34,6 +35,16 @@ export default {
     return request(URL.DELETE.replace(':id',notebookId),'DELETE')
   },
   addNotebook({title = ''} = {title:''}){
-    return request(URL.ADD,'POST',{ title})
+    return new Promise((resolve,reject) =>{
+      request(URL.ADD,'POST',{ title})
+      .then(res => {
+        res.data.createdAtFriendly = friendlyDate(res.data.createdAt)
+        res.data.updatedAtFriendly = friendlyDate(res.data.updateAt)
+        resolve(res)
+      }).catch(err=>{
+        reject(err)
+      })
+    })
+    return 
   }
 }

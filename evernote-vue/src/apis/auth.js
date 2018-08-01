@@ -1,3 +1,6 @@
+// 将所有的request请求封装成一个接口auth，以便直接调用
+
+
 import request from '@/helpers/request'
 
 const URL = {

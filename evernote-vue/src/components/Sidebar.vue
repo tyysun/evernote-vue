@@ -4,7 +4,7 @@
     <div class="icons">
       <router-link to="/note" title="笔记"><i class="iconfont icon-note"></i></router-link>
       <router-link to="/notebooks" title="笔记本"><i class="iconfont icon-notebook"></i></router-link>
-      <router-link to="/trash" title="回收站"><i class="iconfont icon-trash"></i></router-link> 
+      <!-- <router-link to="/trash" title="回收站"><i class="iconfont icon-trash"></i></router-link>  -->
     </div> 
     <div class="logout" >
       <i class="iconfont icon-logout" @click="logout"></i>
@@ -46,11 +46,15 @@ export default {
   background-color: #2c333c;
 
   .icons {
-    margin-top: 15px;
+    margin: 15px 0;
 
     a {
-      padding: 6px 0;
+      padding: 10px 0;
       display: block;
+    }
+
+    .iconfont {
+      color: #fff;
     }
 
     .router-link-active {
@@ -63,10 +67,12 @@ export default {
     width: 100%;
     text-align: center;
     cursor: pointer;
+    
     }
-    .iconfont {
-      color: #fff;
+    .iconfont.icon-logout{
+      color: #ff2e63
     }
+    
   
 }
 </style>
