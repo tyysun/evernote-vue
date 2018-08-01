@@ -4,7 +4,7 @@ import axios from 'axios'
 
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.baseURL = 'http://note-server.hunger-valley.com'
+axios.defaults.baseURL = '//note-server.hunger-valley.com'
 axios.defaults.withCredentials = true 
 //withCredentials = true 解决跨域
 
